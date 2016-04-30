@@ -8,12 +8,11 @@ import com.maths.MathTree;
 import com.maths.TNode;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestMathTRee {
+public class TestMathTree {
 
 	MathTree tree;
 
@@ -28,18 +27,8 @@ public class TestMathTRee {
 	}
 
 	@Test
-	public void testMain() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testMathTree() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testMathTreeString() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	@Test
@@ -105,7 +94,7 @@ public class TestMathTRee {
 
 	@Test
 	public void testAppendChildren() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	@Test
@@ -119,8 +108,11 @@ public class TestMathTRee {
 		assertFalse(tree.canDecomposeBySymbol("(1+2)*3*4", "+"));
 		assertFalse(tree.canDecomposeBySymbol("a", "+"));
 		assertTrue(tree.canDecomposeBySymbol("a+b", "+"));
+		assertFalse(tree.canDecomposeBySymbol("1/(-2)", "-"));
+		assertTrue(tree.canDecomposeBySymbol("+*-", "*"));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testDecomposeBySymbol() {
 		Vector v = new Vector();
@@ -161,7 +153,7 @@ public class TestMathTRee {
 
 	@Test
 	public void testPrintBranchesWithLabel() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	@Test
