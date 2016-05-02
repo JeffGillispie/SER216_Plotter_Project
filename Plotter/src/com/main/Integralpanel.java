@@ -9,6 +9,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -29,7 +30,7 @@ public class Integralpanel extends JDialog implements ActionListener{
 	private JRadioButton typet;
 	private JRadioButton types;
 	private JRadioButton typeg;
-	
+	private JLabel rangeWarning; // to appear when the range is >= 20
 	
 	
 	public Integralpanel(Calculator calc) throws HeadlessException {
@@ -93,10 +94,16 @@ public class Integralpanel extends JDialog implements ActionListener{
 		recalculate.setBounds(5,r,140,20);
 		recalculate.addActionListener(this);
 		pan.add(recalculate);
+		r+=20;
 
 		calculateIntegral(calc);
 		this.calc = calc;
 
+		rangeWarning = new JLabel();
+		rangeWarning.setBounds(5,r,140,60);
+		pan.add(rangeWarning);
+		rangeCheck();
+		
 		add(pan);
 		setModal(true);
 		setVisible(true);
@@ -142,8 +149,33 @@ public class Integralpanel extends JDialog implements ActionListener{
 	 * 
 	 */
 	private void recalculate() {
-		calc.a=Double.parseDouble(displayedA.getText());
-		calc.b=Double.parseDouble(displayedB.getText());
-		calculateIntegral(calc);
+		try {
+			calc.a=Double.parseDouble(displayedA.getText());
+			calc.b=Double.parseDouble(displayedB.getText());
+			calculateIntegral(calc);
+			rangeCheck();
+		} catch (NumberFormatException e) {
+			error("Error in integration range!");
+		}
+	}
+	
+	public void error(String string) {
+		JOptionPane.showMessageDialog(null,string,"Error",JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private void rangeCheck() {
+		double rangeA = Double.parseDouble(displayedA.getText());
+		double rangeB = Double.parseDouble(displayedB.getText());
+		if (rangeB - rangeA >= 20.0) { // for large range: increase window size, show label
+			if (getHeight() != 280) setBounds(30,30,200,280);
+			String html1 = "<html><body style='width: '";
+			String html2 = "px'>";
+			rangeWarning.setText(html1 + "140" + html2 +
+					"Note: large ranges may produce an inaccurate calculation.");
+		} else { // for small range: decrease window size, hide label
+			rangeWarning.setText("");
+			if (getHeight() != 230) setBounds(30,30,200,230);
+		}
+			
 	}
 }

@@ -1072,8 +1072,12 @@ public class Visualizer extends JFrame implements ActionListener,KeyListener,
 	 */
 	private void calculateIntegral() {
 		
-		readRange();
-		Integralpanel ip=new Integralpanel(calc);
+		try {
+			readRange();
+			Integralpanel ip=new Integralpanel(calc);
+		} catch (NumberFormatException e){
+			error("Error in integration range!");
+		}
 		
 	}
 
