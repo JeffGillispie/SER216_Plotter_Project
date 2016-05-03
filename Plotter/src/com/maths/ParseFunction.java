@@ -197,10 +197,17 @@ public class ParseFunction {
 	
 	}
 	
-	private boolean isDecomposable(String function){
+	private boolean isDecomposable(String function) throws NumberFormatException {
+		int begin_index = function.indexOf("(");
+		int end_index = function.indexOf(")");
 		
-		if(function.indexOf("(")>=0) return true;
-
+		if (begin_index >= 0 && end_index == -1) throw new NumberFormatException();
+		else if (end_index >= 0 && begin_index == -1) throw new NumberFormatException();
+		else if (begin_index >=0 && end_index >= 0) {
+			return begin_index < end_index;
+		}
+		
+		
 		return false;
 	}
 
@@ -293,6 +300,8 @@ public class ParseFunction {
 		double result=1;
 		double total=0;
 		String number="";
+		
+		if (molt.equals("")) return 0.0;
 		
 		molt=simplifyPowers(molt);
 		
