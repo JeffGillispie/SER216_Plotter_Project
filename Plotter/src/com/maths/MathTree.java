@@ -367,10 +367,16 @@ public class MathTree {
 
 
 	public boolean canDecomposeBySymbol(String value, String symbol) {
-		int depth=0; // init depth, used to keep terms in parenthesis together
-		// iterate through each char of value
+
+
+
+		int depth=0;
+
 		for(int i=0;i<value.length();i++){
-			char ch=value.charAt(i); // set ch to the char at pos i
+
+
+			char ch=value.charAt(i);
+
 
 			if(ch==symbol.charAt(0) && depth==0){
 				
@@ -380,8 +386,7 @@ public class MathTree {
 					String previous=""+value.charAt(i-1);
 					String next = ""+value.charAt(i+1);
 					
-					if(previous.equals(MULTIPLICATION_LABEL ) || previous.equals(DIVISION_LABEL ) || previous.equals(POWER_LABEL ) ||
-							previous.equals(SUM_LABEL) || previous.equals(SUBTRACTION_LABEL)) // added 05-01-16 re B07
+					if(previous.equals(MULTIPLICATION_LABEL ) || previous.equals(DIVISION_LABEL ) || previous.equals(POWER_LABEL ) || previous.equals(SUM_LABEL) || previous.equals(SUBTRACTION_LABEL) )
 						continue;
 					
 					if(next.equals(MULTIPLICATION_LABEL ) || next.equals(DIVISION_LABEL ) || next.equals(POWER_LABEL ) ||
@@ -392,9 +397,9 @@ public class MathTree {
 				return true;
 			}	
 			else if(ch=='(')
-				depth++; // beginning of grouped terms increase depth so not to trigger check for consecutive symbols
+				depth++;
 			else if(ch==')')
-				depth--; // end of grouped terms decrement depth, if depth is zero we can check for consecutive symbols
+				depth--;
 		}
 
 		return false;

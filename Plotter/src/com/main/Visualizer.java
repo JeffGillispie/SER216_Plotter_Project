@@ -256,43 +256,37 @@ public class Visualizer extends JFrame implements ActionListener,KeyListener,
 	 */
 	private void buildBottomPanel() {
 		
-		draw=new JButton("<html><body><u>D</u>raw</body</html>");
-		draw.addActionListener(this);
-		draw.setBounds(100,2,100,20);
-		
 		more=new JButton("+");
 		more.addActionListener(this);
-		more.setBounds(210,2,50,20);
+		more.setBounds(50,2,50,20);
 		
 		less=new JButton("-");
 		less.addActionListener(this);
-		less.setBounds(280,2,50,20);
+		less.setBounds(130,2,50,20);
 		
 		bottom=new JPanel();
 		bottom.setLayout(null);
 		
-		bottom.add(draw);
 		bottom.add(less);  
 		bottom.add(more);
 		
 		JLabel moves=new JLabel("arrow up,down,left,right to move axis ");
-		moves.setBounds(350,2,300,20);
+		moves.setBounds(300,2,300,20);
 		bottom.add(moves);
 		
 		JLabel lscreenpoint = new JLabel();
 		lscreenpoint.setText("Position x,y: ");
-		lscreenpoint.setBounds(650,2,100,20);
+		lscreenpoint.setBounds(620,2,100,20);
 		bottom.add(lscreenpoint);
 		
 		screenPoint=new JLabel();
 		screenPoint.setText(",");
-		screenPoint.setBounds(750,2,100,20);
+		screenPoint.setBounds(700,2,100,20);
 		bottom.add(screenPoint);
 		
 		bottom.setBounds(0,UPBORDER+HEIGHT,LEFTBORDER+WIDTH+RIGHTBORDER,BUTTOMBORDER);
 		add(bottom);
 		
-		draw.addKeyListener(this);
 		less.addKeyListener(this);
 		more.addKeyListener(this);
 
@@ -312,20 +306,23 @@ public class Visualizer extends JFrame implements ActionListener,KeyListener,
 		add(up);
 		
 		JLabel flabel = new JLabel("Displayed function: y=");
-		flabel.setBounds(5,5,130,20);
+		flabel.setBounds(55,9,130,20);
 		up.add(flabel);
 		
 		displayedFunction=new FunctionTextField();
 		displayedFunction.addKeyListener(this);
 		//displayedFunction.setEditable(false);
-		displayedFunction.setBounds(140,5,400,20);
+		displayedFunction.setBounds(190,9,400,20);
 		displayedFunction.addFocusListener(this);
 		
 		up.add(displayedFunction);
 		displayedFunction.setText(calc.DISPLAYED_FUNCTION);
 		
-		
-		
+		draw=new JButton("<html><body><u>D</u>raw</body</html>");
+		draw.addActionListener(this);
+		draw.setBounds(600,9,100,20);
+		draw.addKeyListener(this);
+		up.add(draw);
 	}
 	
 	/**
@@ -339,19 +336,23 @@ public class Visualizer extends JFrame implements ActionListener,KeyListener,
 			
 			add(up);
 			JLabel flabel = new JLabel("Displayed function: r(teta)=");
-			flabel.setBounds(5,5,160,20);
+			flabel.setBounds(55,9,160,20);
 			up.add(flabel);
 			
 			displayedFunction=new FunctionTextField();
 			displayedFunction.addKeyListener(this);
 			//displayedFunction.setEditable(false);
-			displayedFunction.setBounds(170,5,400,20);
+			displayedFunction.setBounds(220,9,400,20);
 			displayedFunction.addFocusListener(this);
 			up.add(displayedFunction);
 			
 			displayedFunction.setText(calc.DISPLAYED_FUNCTION);
 		
-		
+			draw=new JButton("<html><body><u>D</u>raw</body</html>");
+			draw.addActionListener(this);
+			draw.setBounds(630,9,100,20);
+			draw.addKeyListener(this);
+			up.add(draw);
 		
 		}
 	
@@ -366,19 +367,23 @@ public class Visualizer extends JFrame implements ActionListener,KeyListener,
 			add(up);
 			
 			JLabel flabel = new JLabel("Displayed function: z(x,y)=");
-			flabel.setBounds(5,5,150,20);
+			flabel.setBounds(55,9,150,20);
 			up.add(flabel);
 			
 			displayedFunction=new FunctionTextField();
 			displayedFunction.addKeyListener(this);
 			//displayedFunction.setEditable(false);
-			displayedFunction.setBounds(160,5,400,20);
+			displayedFunction.setBounds(210,9,400,20);
 			displayedFunction.addFocusListener(this);
 			
 			up.add(displayedFunction);
 			displayedFunction.setText(calc.DISPLAYED_FUNCTION);
 			
-			
+			draw=new JButton("<html><body><u>D</u>raw</body</html>");
+			draw.addActionListener(this);
+			draw.setBounds(620,9,100,20);
+			draw.addKeyListener(this);
+			up.add(draw);
 			
 		}
 		
@@ -592,7 +597,7 @@ public class Visualizer extends JFrame implements ActionListener,KeyListener,
 			graphics2D.drawImage(buf,0,0,WIDTH,HEIGHT,null);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			error("Error in parsing function,please read the README.TXT !");
 			displayedFunction.setText("0");
 			
@@ -1067,8 +1072,12 @@ public class Visualizer extends JFrame implements ActionListener,KeyListener,
 	 */
 	private void calculateIntegral() {
 		
-		readRange();
-		Integralpanel ip=new Integralpanel(calc);
+		try {
+			readRange();
+			Integralpanel ip=new Integralpanel(calc);
+		} catch (NumberFormatException e){
+			error("Error in integration range!");
+		}
 		
 	}
 
