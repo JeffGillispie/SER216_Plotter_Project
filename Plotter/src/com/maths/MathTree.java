@@ -378,9 +378,14 @@ public class MathTree {
 				if(i>0){
 					
 					String previous=""+value.charAt(i-1);
+					String next = ""+value.charAt(i+1);
 					
 					if(previous.equals(MULTIPLICATION_LABEL ) || previous.equals(DIVISION_LABEL ) || previous.equals(POWER_LABEL ) ||
 							previous.equals(SUM_LABEL) || previous.equals(SUBTRACTION_LABEL)) // added 05-01-16 re B07
+						continue;
+					
+					if(next.equals(MULTIPLICATION_LABEL ) || next.equals(DIVISION_LABEL ) || next.equals(POWER_LABEL ) ||
+							next.equals(SUM_LABEL) || next.equals(SUBTRACTION_LABEL)) // added 05-01-16 re B07
 						continue;
 				}
 				

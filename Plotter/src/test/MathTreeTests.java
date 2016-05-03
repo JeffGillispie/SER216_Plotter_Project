@@ -120,13 +120,13 @@ public class MathTreeTests {
 		symbol = "+";
 		result = tree.canDecomposeBySymbol(value, symbol);
 		System.out.println(String.format("MathTree.canDecomposeBySymbol(\"%s\", \"%s\") = %s", value, symbol, result));
-		assertTrue(result); // should this be false?
+		assertFalse(result); 
 		// test 10
 		value = "2**2";
 		symbol = "*";
 		result = tree.canDecomposeBySymbol(value, symbol);
 		System.out.println(String.format("MathTree.canDecomposeBySymbol(\"%s\", \"%s\") = %s", value, symbol, result));
-		assertTrue(result); // should this be false?
+		assertFalse(result); 
 	}
 
 }
